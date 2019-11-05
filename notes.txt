@@ -1,0 +1,49 @@
+Client-Server Model
+ 1) Client: Process that requires prior information such as Server address.
+ 2) Server: Process that does not require external information, unless it will need to connect to another Server.
+
+  - Socket: One end of an IPC channel
+  - Each process creates their own socket.
+
+ Client:
+    1) Create a socket with the Socket() syscall(syscall available via operating system)
+    2) Connect to the socket to the address of the Server process using the collect() syscall
+    3) Send(write()) and receive(read()) data
+        - Send: typically the write() syscall
+        - Receive: typically the read() syscall
+
+ Server:
+    1) Create a socket with the Socket() syscall
+    2) Bind the socket of the address using the bind() syscall
+        - For a Server socket intended for the internet, the address
+            consists of a PORT NUMBER on the host machine.
+    3) Listen for connections with the listen() syscall
+    4) Accept a connection with the accept() syscall
+    5) Send and receive data
+        - Send: typically the write() syscall
+        - Receive: typically the read() syscall
+
+**Two sockets(processes) can communicate with each other ONLY IF their sockets are of the same:**
+    - Domain(Address Domain)
+    - Type(Socket Type)
+
+  Address Domains:
+    1) Unix domain: Two processes share a common file system communicate(same host).
+        - Address: Character String(string address) ==> entry in the file system
+    2) Internet domain: Two processes running on ANY two hosts on the internet communicate. 
+        - Address: Internet address(IP Address ==> 32-bit string || 4-bytes) + Port Number(16-bit || 2-byte unsigned integer)
+
+    3) Port Examples: 
+        a) FTP: 21
+        b) TCP: 443
+        c) HTTP: 80
+
+  Socket Types:
+    1) Stream Sockets: Communication as a continuous stream of characters
+        - Communication Protocol
+            a) TCP: Transmission Control Protocol
+                - Reliable Stream Protocol
+    2) Datagram Sockets: Communication as packets(reading entire message at once)
+        - Communication Protocol
+            a) UDP: Unix Datagram Protocol
+                - Unreliable and message oriented
