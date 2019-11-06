@@ -45,5 +45,5 @@ Client-Server Model
                 - Reliable Stream Protocol
     2) Datagram Sockets: Communication as packets(reading entire message at once)
         - Communication Protocol
-            a) UDP: Unix Datagram Protocol
+            a) UDP: User Datagram Protocol
                 - Unreliable and message oriented
